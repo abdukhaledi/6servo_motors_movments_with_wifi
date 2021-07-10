@@ -2,7 +2,7 @@
 ![Screenshot (461)](https://user-images.githubusercontent.com/85647212/125169954-376aac00-e1b5-11eb-99f4-93a77abe4aeb.png)
 This robot :robot: designed and programmed using Arduino to controll robot arm with 6 servo motors, ultrasonic sensor to detect objects, and Wifi module to send and recive  data from the server.
 
-# Movment
+## Movment
 ![Screenshot (463)](https://user-images.githubusercontent.com/85647212/125169896-fbcfe200-e1b4-11eb-965d-c0ad5a41f07c.png)
 The goal in this task is to implement design and program the circuit to controll the robot arm based on the object distance and the IoT outcomes.
 1. first move "Hello" is when the robot detect an object from 250 cm.
@@ -11,14 +11,14 @@ The goal in this task is to implement design and program the circuit to controll
    - if the customer was disappointed, "Sad" movment will be implemented.
    - if the customer end his rivew, "Goodbye" movment will be implemented.
 
-# Components
+## Components
 * Arduino Uno R3
 * Wifi Module (ESP8266)
 * Micro Servo **x6**
 * Ultrasonic Distance Sensor
 * 1 kΩ Resistor **x2**
 
-## Wifi Module (ESP8266)
+### Wifi Module (ESP8266)
 ![image](https://user-images.githubusercontent.com/85647212/124890303-93300c00-dfe0-11eb-8b9d-479d525cd39a.png)
 
 First of all, upload my sample Arduino sketch. Then follow these steps:
@@ -28,7 +28,7 @@ First of all, upload my sample Arduino sketch. Then follow these steps:
 * connect ESP's RX to 1K resistor then to Uno's Pin 0.
 * connect ESP's RX to 1K resistor 2x then to Uno's GND Pin.
 
-## servo motor
+### servo motor
 ![image](https://user-images.githubusercontent.com/85647212/124890530-cc687c00-dfe0-11eb-96c6-e920b7d0acb9.png)
 
 Servo motors have three terminals - power, ground, and signal:
@@ -37,7 +37,7 @@ Servo motors have three terminals - power, ground, and signal:
 * To protect your Arduino board from damage, you will need some driver IC.
 * The signal pin should be connected to Arduino digital pin.
 
-## Ultrasonic Distance Sensor
+### Ultrasonic Distance Sensor
 ![image](https://user-images.githubusercontent.com/85647212/124891082-51539580-dfe1-11eb-8f5f-c68ad4f2a97f.png)
 
 Ultrasonic Sensor have four terminals - power, ground, trigger, and echo:
@@ -45,7 +45,7 @@ Ultrasonic Sensor have four terminals - power, ground, trigger, and echo:
  * The ground wire should be connected to the ground terminal ofArduino.
  * you can attach TRIG and ECHO pin to any Digital I/O in your Arduino Board.
  
-# Circuit
+## Circuit
 ![Screenshot (462)](https://user-images.githubusercontent.com/85647212/124890848-1e110680-dfe1-11eb-85a8-740098783ca1.png)
 
 The circuit containe: 
@@ -54,7 +54,7 @@ The circuit containe:
 * Ultra sonic detector in the right hand side.
 * Wifi module on the left hand side.
 
-# Code
+## Code
 Include Servo and Wifi library
 ```C++
 #include <Servo.h>
