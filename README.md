@@ -5,7 +5,7 @@ This robot :robot: designed and programmed using Arduino to controll robot arm w
 ## Movment
 ![Screenshot (463)](https://user-images.githubusercontent.com/85647212/125169896-fbcfe200-e1b4-11eb-965d-c0ad5a41f07c.png)
 The goal in this task is to implement design and program the circuit to controll the robot arm based on the object distance and the IoT outcomes.
-1. first move "Hello" is when the robot detect an object from 250 cm for 3 minutes long.
+1. first move "Hello" is when the robot detect an object from 250 cm for 3 seconds long.
 2. robot arm interaction is based to the cutomer's rivew:
    - if the customer was satisfied, "Happy" movment will be implemented.
    - if the customer was disappointed, "Sad" movment will be implemented.
