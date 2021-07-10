@@ -70,6 +70,7 @@ Set variables
 // set initial position
 int initial_position;
 int cm = 0;
+int hold_time = 0;
 
 // set threshold distance
 int distanceThreshold = 0;
@@ -88,13 +89,14 @@ int servo_pin4 = 10;
 int servo_pin5 = 11;
 
 // Create a servo object
-Servo Servo0;
-Servo Servo1;
-Servo Servo2;
+Servo Servo0; // shoulder
+Servo Servo1; // shoulder
+Servo Servo2; // arm
 
-Servo Servo3;
-Servo Servo4;
-Servo Servo5;
+Servo Servo3; // shoulder
+Servo Servo4; // shoulder
+Servo Servo5; // arm
+
 ```
 Make a function for the ultrasonic
 ```C++
@@ -134,7 +136,6 @@ void setup() {
   Servo4.attach(servo_pin4);
   Servo5.attach(servo_pin5);
 
-  // set the initial position on 90 digree
   Servo0.write(0);
   Servo1.write(0);
   Servo2.write(0);
@@ -147,10 +148,6 @@ void setup() {
 loop object
 ```C++
 void loop() {
-  // listen for communication from the ESP8266 and then write it to the serial monitor
-  if (ESPserial.available()) { 
-    read_input = Serial.write(ESPserial.read()); 
-  }
 
   // set threshold distance to activate LEDs
   distanceThreshold = 350;
@@ -158,6 +155,13 @@ void loop() {
   // measure the ping time in cm
   cm = 0.01723 * ultrasonic_distance(12, 13);
 
+  // this loop is for controlling the time before enter the programm
+  if (cm < distanceThreshold - 100 && cm > distanceThreshold - 250 && hold_time < 3) 
+  {
+    hold_time++;
+    delay(1000); // not exactly 3 seconds but around 3 seconds
+  }
+  
   // OFF when object is farther than 250
   if (cm > distanceThreshold) {
     Servo0.write(0);
@@ -167,6 +171,8 @@ void loop() {
     Servo3.write(0);
     Servo4.write(0);
     Servo5.write(0);
+    
+    hold_time = 0;
   }
   else if (cm < distanceThreshold && cm > distanceThreshold - 100) {
     Servo0.write(0);
@@ -176,54 +182,76 @@ void loop() {
     Servo3.write(0);
     Servo4.write(0);
     Servo5.write(0);
+    
+    hold_time = 0;
   }
   // ON when objecct is nearer than 250
-  else if (cm < distanceThreshold - 100 && cm > distanceThreshold - 250) {
-    Servo0.write(180);
-    Servo1.write(180);
-    Servo2.write(180);
+  else if (cm < distanceThreshold - 100 && cm > distanceThreshold - 250 && hold_time == 3) {
+    Servo0.write(100);
+    Servo1.write(30);
+    Servo2.write(60);
 
-    Servo3.write(180);
-    Servo4.write(180);
-    Servo5.write(180);
+    Servo3.write(100);
+    Servo4.write(30);
+    Servo5.write(60);
     delay(3000);
 
     // reply only when you receive data:
-    if (Serial.available() > 0) 
-    {
+    if ( Serial.available() || ESPserial.available() ){
       incomingChar = Serial.read();
-      if (incomingChar == 'H') { //Happy movment
-        Servo0.write(10);
-        Servo1.write(100);
-        Servo2.write(100);
-
-        Servo3.write(100);
-        Servo4.write(100);
-        Servo5.write(100);
-        delay(5000);
+      read_input = Serial.write(ESPserial.read());
+      if (incomingChar == 'H' || read_input == 'H') { //Happy movment
+        Servo0.write(130);
+        Servo1.write(30);
+        Servo2.write(20);
+        Servo3.write(130);
+        Servo4.write(30);
+        Servo5.write(20);
+        delay(500);
+        
+        for (int i = 0; i < 5; i++) {
+  		  Servo2.write(50);
+          Servo5.write(50);
+          delay(500);
+        
+          Servo2.write(20);
+          Servo5.write(20);
+          delay(500);
+		}
       }
-      else if (incomingChar == 'S') { //Sad movment
+      else if (incomingChar == 'S' || read_input == 'S') { //Sad movment
         Servo0.write(10);
-        Servo1.write(10);
-        Servo2.write(10);
+        Servo1.write(90);
+        Servo2.write(90);
+
+        Servo3.write(10);
+        Servo4.write(90);
+        Servo5.write(90);
+        delay(7500);
+      }
+      else if (incomingChar == 'G' || read_input == 'G') { //Goodbye movment
+        Servo0.write(150);
+        Servo1.write(130);
+        Servo2.write(20);
 
         Servo3.write(10);
         Servo4.write(10);
         Servo5.write(10);
-        delay(5000);
-      }
-      else if (incomingChar == 'G') { //goodbye movment
-        Servo0.write(180);
-        Servo1.write(180);
-        Servo2.write(180);
-
-        Servo3.write(180);
-        Servo4.write(180);
-        Servo5.write(180);
-        delay(5000);
+        delay(500);
+        
+        for (int i = 0; i < 5; i++) {
+  		  Servo2.write(90);
+          delay(500);
+          Servo2.write(20);
+          delay(500);
+		}
       }      
     }
   }
 }
 ```
+
+## Output
+https://user-images.githubusercontent.com/85647212/125175489-38abd100-e1d5-11eb-87a9-d48fae91b509.mp4
+
 
