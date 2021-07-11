@@ -1,6 +1,6 @@
 # 4th-project
 ![Screenshot (461)](https://user-images.githubusercontent.com/85647212/125169954-376aac00-e1b5-11eb-99f4-93a77abe4aeb.png)
-This robot :robot: designed and programmed using Arduino to controll robot arm with 6 servo motors, ultrasonic sensor to detect objects, and Wifi module to send and recive  data from the server. Work is done with https://github.com/MutasimFe
+This robot :robot: designed and programmed using Arduino to controll robot arm with 6 servo motors, ultrasonic sensor to detect objects, and Wifi module to send and recive  data from the server. Work is done with my friend Mutasim: https://github.com/MutasimFe
 
 ## Movment
 ![Screenshot (463)](https://user-images.githubusercontent.com/85647212/125169896-fbcfe200-e1b4-11eb-965d-c0ad5a41f07c.png)
